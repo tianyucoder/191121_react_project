@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import ajax from '../../api/ajax'
+import {reqLogin} from '../../api'
 import logo from './images/logo.png'
 import './css/login.less'
 
 const {Item} = Form
 
-
-
 export default class Login extends Component {
 	//表单提交且验证通过的回调
-	onFinish = values => {
-    ajax.post('http://localhost:3000/login',values).then(
-			response => {console.log('成功了',response);},
-			error => {console.log('出错了',error);}
-		)
+	onFinish = async values => {
+		let result = await reqLogin(values)
+		console.log(result);
 	};
 
 	//密码的验证器（自定义校验）
