@@ -9,5 +9,5 @@
 
 ## day02任务
 		1.引入react-router-dom，搭建一级路由(login\admin)
-		2.Login组件
+		2.Login组件---静态
 		
