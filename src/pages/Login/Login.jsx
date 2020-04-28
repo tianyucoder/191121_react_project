@@ -8,9 +8,21 @@ const {Item} = Form
 
 export default class Login extends Component {
 
+	//表单提交且验证通过的回调
 	onFinish = values => {
-    console.log('Received values of form: ', values);
+    console.log('收到了表单数据，发送请求给xxx服务器：', values);
 	};
+
+	//密码的验证器（自定义校验）
+	pwdValidator = (_,value="")=>{
+		let errMsgArr = []
+		if(!value.trim()) return Promise.reject('密码必须输入！')
+		if(value.length < 4) errMsgArr.push('密码必须大于等于4位')
+		if(value.length > 12)errMsgArr.push('密码必须小于等于12位')
+		if(!(/^\w+$/).test(value)) errMsgArr.push('密码必须是英文、数字、下划线组成！')
+		if(errMsgArr.length !== 0) return Promise.reject(errMsgArr)
+		else return Promise.resolve()
+	}
 	
 	render() {
 		return (
@@ -47,7 +59,12 @@ export default class Login extends Component {
 								placeholder="用户名"
 							/>
 						</Item>
-						<Item>
+						<Item
+							name="password"
+							rules={[
+								{validator:this.pwdValidator}
+							]}
+						>
 							<Input
 								prefix={<LockOutlined className="site-form-item-icon" />}
 								type="password"
