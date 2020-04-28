@@ -5,7 +5,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<div>
-				App...
+				App....
 				<Button type="primary">点我</Button>
 			</div>
 		)
