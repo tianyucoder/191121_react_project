@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import axios from 'axios'
 import logo from './images/logo.png'
 import './css/login.less'
 
@@ -10,7 +11,10 @@ export default class Login extends Component {
 
 	//表单提交且验证通过的回调
 	onFinish = values => {
-    console.log('收到了表单数据，发送请求给xxx服务器：', values);
+    axios.post('http://localhost:3000/login',`username=${values.username}&password=${values.password}`).then(
+			response => {console.log('成功了',response);},
+			error => {console.log('出错了',error);}
+		)
 	};
 
 	//密码的验证器（自定义校验）
