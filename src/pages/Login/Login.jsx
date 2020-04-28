@@ -61,9 +61,7 @@ export default class Login extends Component {
 						</Item>
 						<Item
 							name="password"
-							rules={[
-								{validator:this.pwdValidator}
-							]}
+							rules={[{validator:this.pwdValidator}]}
 						>
 							<Input
 								prefix={<LockOutlined className="site-form-item-icon" />}
