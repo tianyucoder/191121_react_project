@@ -12,18 +12,25 @@ export default class Count extends Component {
 	increment = ()=>{
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
+		this.props.increment(value*1)
 	}
 
 	//减
 	decrement = ()=>{
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
+		this.props.decrement(value*1)
 	}
 
 	//当前的和是奇数再加
 	incrementIfOdd = ()=>{
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
+		//获取当前的和
+		const {count} = this.props
+		if(count%2 === 1){
+			this.props.increment(value*1)
+		}
 	}
 
 	//等500毫秒再加
@@ -31,14 +38,15 @@ export default class Count extends Component {
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
 		setTimeout(()=>{
-			
+			this.props.increment(value*1)
 		},500)
 	}
 
 	render() {
+		//console.log('UI-Count接收到的props：',this.props);
 		return (
 			<div>
-				<h1>当前求和为：xxxx</h1>
+				<h1>当前求和为：{this.props.count}</h1>
 				<select ref="user_selected">
 					<option value="1">1</option>
 					<option value="2">2</option>

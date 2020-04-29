@@ -11,6 +11,8 @@
 import Count from '../components/Count'
 //2.引入connect方法(重点)
 import {connect} from 'react-redux'
+//3.引入action
+import {increment,decrement} from '../redux/actions/count'
 
 /* 
 		connect方法：
@@ -19,6 +21,29 @@ import {connect} from 'react-redux'
 			3.connect这样使用：connect(状态，操作状态的方法)(UI组件)。
 */
 
-export default connect()(Count)
+/* 
+	mapStateToProps方法专门用于给UI组件传递redux中的状态，以props形式传递。
+		1.因为：props是key-value的形式，所以mapStateToProps方法必须返回一个Object对象
+		2.mapStateToProps方法所返回的那个对象的key就作为传给UI组件props的key
+		3.mapStateToProps方法所返回的那个对象的value就作为传给UI组件props的value
+*/
+function mapStateToProps (state){
+	return {count:state}
+}
+
+/* 
+	mapDispatchToProps方法专门用于给UI组件传递redux中的状态，以props形式传递。
+		1.因为：props是key-value的形式，所以mapStateToProps方法必须返回一个Object对象
+		2.mapStateToProps方法所返回的那个对象的key就作为传给UI组件props的key
+		3.mapStateToProps方法所返回的那个对象的value就作为传给UI组件props的value
+*/
+function mapDispatchToProps(dispatch){
+	return {
+		increment:(value)=>{dispatch(increment(value))},
+		decrement:(value)=>{dispatch(decrement(value))},
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Count)
 
 
