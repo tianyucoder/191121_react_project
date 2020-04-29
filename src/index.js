@@ -2,9 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import store from './redux/store'
+import {Provider} from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.render(<App/>,document.getElementById('root'))
-//如果redux中保存的状态发生变化，那么就调用store.subcribe所指定的回调。
-store.subscribe(()=>{
-	ReactDOM.render(<App/>,document.getElementById('root'))
-})
+ReactDOM.render(
+	<Provider store={store}>
+		<BrowserRouter>
+			<App/>
+		</BrowserRouter>
+	</Provider>,
+document.getElementById('root'))
+
