@@ -4,7 +4,6 @@ import {INCREMENT,DECREMENT} from '../action_types'
 
 let initState = 0 //定义初始状态
 export default function (preState=initState,action){
-	console.log('count的reducer');
 	const {type,data} = action
 	let newState
 	switch (type) {
