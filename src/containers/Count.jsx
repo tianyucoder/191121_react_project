@@ -7,7 +7,7 @@ import {increment,decrement,incrementAsync} from '../redux/actions/count'
 
 
 export default connect(
-	state => ({count:state}), //映射状态
+	state => ({count:state.number}), //映射状态,state是redux中保存的【总】状态。
 
 	//原始的写法：
 	/* dispatch => (
