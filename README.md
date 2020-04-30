@@ -32,9 +32,15 @@
 				6.2 特点：有一种函数式的action，这个函数里面会写异步任务。
 				6.3 要下载redux-thunk
 		
-		7.redux的模块化编码
+		7.redux的模块化编码_非标准
 				7.1 模块化编码，其实就是redux要管理多个组件的状态。
 				7.2 创建store时，指定的是一个汇总的reducer
 				7.3 汇总要用redux提供的combineReducers去组合所有的reducer
 				7.4 redux保管的总状态是一个对象，对象的key由我们定，对象的valule由对应的reducer生成。
+
+		8.redux的模块化编码_标准： 容器组件和UI组件合成一个了
+
+		9.要下载redux-devtools-extension,且要在store中编码。
+
+		10.概念
 
