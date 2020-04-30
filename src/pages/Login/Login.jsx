@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import {reqLogin} from '../../api'
+import {reqLogin} from '@/api'
 import logo from './images/logo.png'
 import './css/login.less'
 
