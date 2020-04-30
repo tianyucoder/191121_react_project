@@ -37,7 +37,9 @@ export default class Count extends Component {
 	incrementAsync = ()=>{
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
-		this.props.incrementAsync(value*1,2000)
+		//定时器交给action
+		this.props.incrementAsync(value*1,500)
+		//定时放在自家
 		/* setTimeout(()=>{
 			this.props.increment(value*1)
 		},500) */
