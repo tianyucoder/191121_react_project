@@ -12,13 +12,13 @@ export default connect(
 	//原始的写法：
 	/* dispatch => (
 		{
-			increment:(value)=>{dispatch(createIncrementAction(value))},
-			decrement:(value)=>{dispatch(createDecrementAction(value))},
+			increment:(value)=>{dispatch(increment(value))},
+			decrement:(value)=>{dispatch(decrement(value))},
 		}
 	) */
 
 	//精简的写法：
-	{increment,decrement}
+	{increment,	decrement}
 
 )(Count)
 

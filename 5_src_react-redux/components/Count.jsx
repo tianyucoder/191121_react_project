@@ -12,14 +12,14 @@ export default class Count extends Component {
 	increment = ()=>{
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
-		this.props.increment(value*1)
+		this.props.jia(value*1)
 	}
 
 	//减
 	decrement = ()=>{
 		//1.获取用户的输入
 		const {value} = this.refs.user_selected
-		this.props.decrement(value*1)
+		this.props.jian(value*1)
 	}
 
 	//当前的和是奇数再加
