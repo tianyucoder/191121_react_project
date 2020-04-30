@@ -27,3 +27,14 @@
 						(4).容器组件给UI组件传递：1.redux保存的状态 2.操作状态的方法。
 						(5).扩展：一个“骚气”的简单写法
 
+		6.redux中的异步action(redux的异步编码)
+				6.1 异步action不是一个必须的选择(可用可不用)
+				6.2 特点：有一种函数式的action，这个函数里面会写异步任务。
+				6.3 要下载redux-thunk
+		
+		7.redux的模块化编码
+				7.1 模块化编码，其实就是redux要管理多个组件的状态。
+				7.2 创建store时，指定的是一个汇总的reducer
+				7.3 汇总要用redux提供的combineReducers去组合所有的reducer
+				7.4 redux保管的总状态是一个对象，对象的key由我们定，对象的valule由对应的reducer生成。
+
