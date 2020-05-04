@@ -35,3 +35,6 @@
 		5.Admin组件读取用户名展示
 		6.处理刷新页面redux信息丢失的问题
 		7.给Login组件和Admin组件增加权限的校验
+		8.Header组件-静态
+		9.Header组件-全屏，使用screenfull
+		10.Header组件-退出登录
