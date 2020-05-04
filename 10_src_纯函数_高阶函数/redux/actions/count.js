@@ -5,6 +5,7 @@
 				2.减的action {type:'decrement',data:???}
 */
 import {INCREMENT,DECREMENT} from '../action_types'
+import Axios from 'axios'
 
 //创建加的action ---- 对象式action
 export const increment = value => ({type:INCREMENT,data:value})

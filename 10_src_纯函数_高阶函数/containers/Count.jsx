@@ -84,9 +84,3 @@ export default connect(
 	{increment,decrement,incrementAsync} //映射操作状态的方法
 
 )(Count)
-
-/* 
-		思考：一个普通的组件要和redux“打交道”，流程是什么？
-*/
-
-
