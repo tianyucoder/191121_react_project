@@ -1,8 +1,6 @@
-import {SAVE_USERINFO} from '@/redux/action_types'
+import {SAVE_USERINFO,DELETE_USERINFO} from '@/redux/action_types'
 
 //尝试着从localStorage中读取user和token
-//思考1：localStorage.getItem('demo'),若demo根本就不存在，获取到的值是什么？
-//思考2：JSON.parse(localStorage.getItem('demo')),若demo根本就不存在，parse转换后的值是什么？
 let _user
 try {
 	_user = JSON.parse(localStorage.getItem('user'))
@@ -25,6 +23,9 @@ export default function(preState=initState,action){
 	switch (type) {
 		case SAVE_USERINFO: //如果是保存用户信息
 			newState = {...data,isLogin:true}
+			return newState
+		case DELETE_USERINFO: //如果是删除用户信息
+			newState = {user:{},token:'',isLogin:false}
 			return newState
 		default: //如果是初始化用户信息
 			return preState
