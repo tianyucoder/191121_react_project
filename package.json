@@ -13,6 +13,7 @@
     "http-proxy-middleware": "^1.0.3",
     "less": "^3.11.1",
     "less-loader": "5",
+    "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",

@@ -20,3 +20,9 @@
 		8.axios请求拦截器统一处理参数json编码问题。
 		9.axios响应拦截器统一处理：1.数据为data。2.错误。
 		10.抽离:api/index.js统一管理项目的ajax请求。
+
+## day03任务
+		redux
+
+## day04任务
+		redux
