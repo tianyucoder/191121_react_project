@@ -10,11 +10,12 @@ const {Item} = Form
 export default class Login extends Component {
 	//表单提交且验证通过的回调
 	onFinish = async values => {
-		let result = await reqLogin(values)
-		const {status,data,msg} = result
+		let result = await reqLogin(values) //获取请求结果
+		const {status,data,msg} = result //获取请求结果中的：status,data,msg
 		if(status === 0){
 			message.success('登录成功！',1)
 			console.log(data);
+			this.props.history.replace('/admin') //跳转页面
 		}else{
 			message.error(msg)
 		}
