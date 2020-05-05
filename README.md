@@ -38,3 +38,10 @@
 		8.Header组件-静态
 		9.Header组件-全屏，使用screenfull
 		10.Header组件-退出登录
+
+## day05任务
+		1.Header组件展示用户名
+		2.装饰器语法（代码在App.js中）
+				第一步：yarn add @babel/plugin-proposal-decorators 用于解析装饰器语法。
+				第二步：在config-overrides.js，追加一个loader,addDecoratorsLegacy。
+				第三步：

@@ -47,13 +47,15 @@ class Header extends Component {
 	}
 
 	render() {
+		const {username} = this.props
+		const {isFull} = this.state
 		return (
 			<div className="header">
 				<div className="header-top">
 					<Button size="small" onClick={this.fullScreen}>
-						{this.state.isFull ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+						{isFull ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
 					</Button>
-					<span className="username">欢迎,佩奇</span>
+					<span className="username">欢迎,{username}</span>
 					<Button type="link" size="small" onClick={this.logout}>退出登录</Button>
 				</div>
 				<div className="header-bottom">
@@ -73,6 +75,6 @@ class Header extends Component {
 }
 
 export default connect(
-	state => ({}),//映射状态
+	state => ({username:state.userInfo.user.username}),//映射状态
 	{deleteUserInfo}//映射操作状态的方法
 )(Header)
