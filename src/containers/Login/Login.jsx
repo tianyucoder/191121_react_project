@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+//import {Redirect} from 'react-router-dom'
+import Check from '@/containers/Hoc/Check'
 import {saveUserInfo} from '@/redux/actions/login'
 import {reqLogin} from '@/api'
 import logo from './images/logo.png'
@@ -10,6 +11,11 @@ import './css/login.less'
 
 const {Item} = Form
 
+@connect(
+	state => ({isLogin:state.userInfo.isLogin}),//映射状态
+	{saveUserInfo} //映射操作状态的方法
+)
+@Check
 class Login extends Component {
 	//表单提交且验证通过的回调
 	onFinish = async values => {
@@ -39,7 +45,7 @@ class Login extends Component {
 	//this.props.history适用于在非render函数中跳转
 	//<Redirect>适用于在render函数中做跳转
 	render() {
-		if(this.props.isLogin) return <Redirect to="/admin"/>
+		//if(this.props.isLogin) return <Redirect to="/admin"/>
 		return (
 			<div className="login">
 				<header>
@@ -96,7 +102,5 @@ class Login extends Component {
 	}
 }
 
-export default connect(
-	state => ({isLogin:state.userInfo.isLogin}),//映射状态
-	{saveUserInfo} //映射操作状态的方法
-)(Login)
+export default Login
+
