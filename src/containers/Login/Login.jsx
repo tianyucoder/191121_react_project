@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import Check from '@/containers/Hoc/Check'
 import {saveUserInfo} from '@/redux/actions/login'
 import {reqLogin} from '@/api'
-import logo from './images/logo.png'
+import logo from '@/assets/images/logo.png'
 import './css/login.less'
 
 const {Item} = Form
