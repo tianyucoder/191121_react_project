@@ -1,18 +1,32 @@
 import React, { Component } from 'react'
 import {Menu} from 'antd';
-import {
-  AppstoreOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
 import logo from '@/assets/images/logo.png'
+import menus from '@/config/menu_config'
 import './css/left_nav.less'
 
-const { SubMenu } = Menu;
+const {SubMenu,Item} = Menu;
 
 export default class LeftNav extends Component {
+
+	//创建菜单的函数
+	createMenu = (menuArr)=>{
+		return menuArr.map((menuObj)=>{
+			if(!menuObj.children){
+				return (
+					<Item key={menuObj.key} icon={<menuObj.icon/>}>
+						{menuObj.title}
+					</Item>
+				)
+			}else{
+				return(
+					<SubMenu key={menuObj.key} icon={<menuObj.icon/>} title={menuObj.title}>
+						{this.createMenu(menuObj.children)}
+					</SubMenu>
+				)
+			}
+		})
+	}
+
 	render() {
 		return (
 			<div className="left-nav">
@@ -20,37 +34,15 @@ export default class LeftNav extends Component {
 					<img src={logo} alt=""/>
 					<span>商品管理系统</span>
 				</div>
+				{/* antd的Menu组件 */}
 				<Menu
-						defaultSelectedKeys={['1']}
-						defaultOpenKeys={['sub1']}
-						mode="inline"
-						theme="dark"
-						//inlineCollapsed={this.state.collapsed}
-					>
-						<Menu.Item key="1" icon={<PieChartOutlined />}>
-							Option 1
-						</Menu.Item>
-						<Menu.Item key="2" icon={<DesktopOutlined />}>
-							Option 2
-						</Menu.Item>
-						<Menu.Item key="3" icon={<ContainerOutlined />}>
-							Option 3
-						</Menu.Item>
-						<SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-							<Menu.Item key="5">Option 5</Menu.Item>
-							<Menu.Item key="6">Option 6</Menu.Item>
-							<Menu.Item key="7">Option 7</Menu.Item>
-							<Menu.Item key="8">Option 8</Menu.Item>
-						</SubMenu>
-						<SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-							<Menu.Item key="9">Option 9</Menu.Item>
-							<Menu.Item key="10">Option 10</Menu.Item>
-							<SubMenu key="sub3" title="Submenu">
-								<Menu.Item key="11">Option 11</Menu.Item>
-								<Menu.Item key="12">Option 12</Menu.Item>
-							</SubMenu>
-						</SubMenu>
-					</Menu>
+					defaultSelectedKeys={['home']} //默认选中哪个菜单
+					defaultOpenKeys={[]} //默认展开哪个菜单
+					mode="inline" //菜单的模式
+					theme="dark" //主题颜色
+				>
+					{this.createMenu(menus)}
+				</Menu>
 			</div>
 		)
 	}
