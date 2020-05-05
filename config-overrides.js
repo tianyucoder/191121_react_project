@@ -21,5 +21,5 @@ module.exports = override(
 	addWebpackAlias({
 		"@": resolve(__dirname, "src")
 	}),
-	addDecoratorsLegacy()
+	addDecoratorsLegacy() //用于支持装饰器语法
 );

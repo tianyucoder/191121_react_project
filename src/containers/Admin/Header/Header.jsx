@@ -9,16 +9,21 @@ import screenfull from 'screenfull'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
 import {deleteUserInfo} from '@/redux/actions/login'
-import demo from './demo.jpg'
+import {reqWeatherData} from '@/api'
 import './css/header.less'
 
 const { confirm } = Modal;
 
+@connect(
+	state => ({username:state.userInfo.user.username}),//映射状态
+	{deleteUserInfo}//映射操作状态的方法
+)
 class Header extends Component {
 
 	state = {
 		isFull:false, //标识是否全屏
-		time:dayjs().format('YYYY年MM月DD日 HH:mm:ss')
+		time:dayjs().format('YYYY年MM月DD日 HH:mm:ss'), //时间
+		weatherData:{} //天气信息对象
 	}
 
 	//退出登录
@@ -40,17 +45,25 @@ class Header extends Component {
 		screenfull.toggle(); //切换全屏
 	}
 
+	//请求天气信息
+	getWeather = async ()=>{
+		let result = await reqWeatherData()
+		const {dayPictureUrl,weather,temperature} = result
+		this.setState({weatherData:{dayPictureUrl,weather,temperature}})
+	}
+
 	componentDidMount(){
 		//检测屏幕的变化
 		screenfull.onchange(()=>{
 			const {isFull} = this.state
 			this.setState({isFull:!isFull})
-			
 		})
 		//开启一个定时器计算时间
 		this.timer = setInterval(()=>{
 			this.setState({time:dayjs().format('YYYY年MM月DD日 HH:mm:ss')})
 		},1000)
+		//请求天气信息
+		//this.getWeather()
 	}
 
 	componentWillUnmount(){
@@ -59,7 +72,7 @@ class Header extends Component {
 
 	render() {
 		const {username} = this.props
-		const {isFull,time} = this.state
+		const {isFull,time,weatherData} = this.state
 		return (
 			<div className="header">
 				<div className="header-top">
@@ -75,17 +88,13 @@ class Header extends Component {
 					</div>
 					<div className="bottom-right">
 						<span>{time}</span>
-						<img src={demo} alt=""/>
-						<span>多云转晴</span>
-						<span>温度：0~15℃</span>
+						<img src={weatherData.dayPictureUrl} alt=""/>
+						<span>{weatherData.weather}</span>&nbsp;
+						<span>温度：{weatherData.temperature}</span>
 					</div>
 				</div>
 			</div>
 		)
 	}
 }
-
-export default connect(
-	state => ({username:state.userInfo.user.username}),//映射状态
-	{deleteUserInfo}//映射操作状态的方法
-)(Header)
+export default Header

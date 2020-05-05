@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux'
-//import {Redirect} from 'react-router-dom'
 import Check from '@/containers/Hoc/Check'
 import {saveUserInfo} from '@/redux/actions/login'
 import {reqLogin} from '@/api'

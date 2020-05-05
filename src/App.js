@@ -80,7 +80,6 @@ MyClass = test()(MyClass) */
         b. Promise: Promise(() => {}) then(value => {}, reason => {})
         c. 数组遍历相关的方法: forEach()/filter()/map()/reduce()/find()/findIndex()
         d. 函数对象的bind()
-        e. Form.create()() / getFieldDecorator()()
     3). 作用：高阶函数可以更加的动态, 更加具有扩展性
 
 2. 高阶组件:

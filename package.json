@@ -13,6 +13,7 @@
     "customize-cra": "^0.9.1",
     "dayjs": "^1.8.26",
     "http-proxy-middleware": "^1.0.3",
+    "jsonp": "^0.2.1",
     "less": "^3.11.1",
     "less-loader": "5",
     "nprogress": "^0.2.0",
