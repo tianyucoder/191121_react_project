@@ -20,6 +20,7 @@ class Login extends Component {
 			message.success('登录成功！',1) //提示
 			this.props.saveUserInfo(data) //向redux和localStorage中保存用户信息
 		}else{
+			//若登录失败
 			message.error(msg)
 		}
 	};
