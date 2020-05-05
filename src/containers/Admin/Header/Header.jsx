@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import screenfull from 'screenfull'
 import {connect} from 'react-redux'
+import dayjs from 'dayjs'
 import {deleteUserInfo} from '@/redux/actions/login'
 import demo from './demo.jpg'
 import './css/header.less'
@@ -16,7 +17,8 @@ const { confirm } = Modal;
 class Header extends Component {
 
 	state = {
-		isFull:false //标识是否全屏
+		isFull:false, //标识是否全屏
+		time:dayjs().format('YYYY年MM月DD日 HH:mm:ss')
 	}
 
 	//退出登录
@@ -43,12 +45,21 @@ class Header extends Component {
 		screenfull.onchange(()=>{
 			const {isFull} = this.state
 			this.setState({isFull:!isFull})
+			
 		})
+		//开启一个定时器计算时间
+		this.timer = setInterval(()=>{
+			this.setState({time:dayjs().format('YYYY年MM月DD日 HH:mm:ss')})
+		},1000)
+	}
+
+	componentWillUnmount(){
+		clearInterval(this.timer)
 	}
 
 	render() {
 		const {username} = this.props
-		const {isFull} = this.state
+		const {isFull,time} = this.state
 		return (
 			<div className="header">
 				<div className="header-top">
@@ -63,7 +74,7 @@ class Header extends Component {
 						<span>首页</span>
 					</div>
 					<div className="bottom-right">
-						<span>2020年5月4日 00:00:00</span>
+						<span>{time}</span>
 						<img src={demo} alt=""/>
 						<span>多云转晴</span>
 						<span>温度：0~15℃</span>

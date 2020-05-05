@@ -47,3 +47,5 @@
 				第三步：在jsconfig.json中，追加一个配置："experimentalDecorators":true。
 		3.将项目中的connect用装饰器语法去写。
 		4.高阶函数 & 高阶组件
+		5.自定义一个高阶组件，校验组件权限（难点，非必须掌握）
+		6.
