@@ -44,4 +44,4 @@
 		2.装饰器语法（代码在App.js中）
 				第一步：yarn add @babel/plugin-proposal-decorators 用于解析装饰器语法。
 				第二步：在config-overrides.js，追加一个loader,addDecoratorsLegacy。
-				第三步：
+				第三步：在jsconfig.json中，追加一个配置："experimentalDecorators":true。
