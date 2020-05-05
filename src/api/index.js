@@ -9,7 +9,7 @@ export const reqLogin = loginObj => ajax.post('/login',loginObj)
 //请求天气信息
 export const reqWeatherData = ()=>{
 	//定义请求天气信息的url
-	const URL = `http://api.map.baiduu.com/telematics/v3/weather?location=${CITY}&output=json&ak=${WEATHER_AK}`
+	const URL = `http://api.map.baidu.com/telematics/v3/weather?location=${CITY}&output=json&ak=${WEATHER_AK}`
 	return new Promise((resolve)=>{
 		//使用jsonp库发送请求
 		jsonp(URL,{
