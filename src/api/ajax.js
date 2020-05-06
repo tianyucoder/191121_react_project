@@ -11,6 +11,9 @@ import qs from 'querystring' //用于将对象转为urlencoded字符串
 import nprogress from 'nprogress'//引入nprogress制作进度条
 import 'nprogress/nprogress.css'
 import {message as msg} from 'antd'
+import store from '@/redux/store'
+import {deleteUserInfo} from '@/redux/actions/login'
+import {saveTitle} from '@/redux/actions/title'
 
 //配置请求的基础路径
 axios.defaults.baseURL = '/api'
@@ -24,6 +27,11 @@ axios.interceptors.request.use((config)=>{
 	//统一处理post请求json编码问题（转为urlencoded）
 	if(method.toLowerCase() === 'post' && data instanceof Object){
 		config.data = qs.stringify(data)
+	}
+	//如果存在token，那就携带token
+	const {token} = store.getState().userInfo
+	if(token){
+		config.headers.Authorization = 'atguigu_'+token
 	}
 	//必须返回配置对象
 	return config
@@ -41,7 +49,13 @@ axios.interceptors.response.use(
 		nprogress.done()
 		let errmsg = '未知错误，请联系管理员'
 		const {message} = err
-		if(message.indexOf('401') !== -1) errmsg = '未登录或身份过期，请重新登录！'
+		if(message.indexOf('401') !== -1) {
+			//强制退出，回login
+			//联系redux删除所有用户数据
+			store.dispatch(deleteUserInfo())
+			store.dispatch(saveTitle(''))
+			errmsg = '未登录或身份过期，请重新登录！'
+		}
 		else if(message.indexOf('Network Error') !== -1) errmsg = '网络不通，请检查网络连接！'
 		else if(message.indexOf('timeout') !== -1) errmsg = '网络不稳定，连接超时！'
 		msg.error(errmsg,1)

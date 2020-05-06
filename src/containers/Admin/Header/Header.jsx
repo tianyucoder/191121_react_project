@@ -9,6 +9,7 @@ import screenfull from 'screenfull'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
 import {deleteUserInfo} from '@/redux/actions/login'
+import {saveTitle} from '@/redux/actions/title'
 import {reqWeatherData} from '@/api'
 import './css/header.less'
 
@@ -19,7 +20,7 @@ const { confirm } = Modal;
 		username:state.userInfo.user.username,
 		title:state.title
 	}),
-	{deleteUserInfo}//映射操作状态的方法
+	{deleteUserInfo,saveTitle}//映射操作状态的方法
 )
 class Header extends Component {
 
@@ -39,6 +40,7 @@ class Header extends Component {
 			okText:'确认',
 			onOk:()=> { //确定按钮的回调
 				this.props.deleteUserInfo()
+				this.props.saveTitle('')
 			}
 		});
 	}
