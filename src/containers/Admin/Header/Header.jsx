@@ -89,7 +89,7 @@ class Header extends Component {
 					<div className="bottom-right">
 						<span>{time}</span>
 						{/* <img src={weatherData.dayPictureUrl} alt="天气logo"/> */}
-						<img src="http://api.map.baidu.com/images/weather/day/qing.png" alt="天气logo"/>
+						<img src = 'https://ftp.bmp.ovh/imgs/2020/05/3164f15abfffdd8c.png'alt="天气图标"/>
 						<span>{weatherData.weather}</span>&nbsp;
 						{/* <span>温度：{weatherData.temperature}</span> */}
 						<span>温度：1~10℃</span>
