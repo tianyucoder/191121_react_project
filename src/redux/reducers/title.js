@@ -1,6 +1,6 @@
 import {SAVE_TITLE} from '@/redux/action_types'
 
-let initState = '首页'
+let initState = ''
 export default function (preState=initState,action){
 	let newState
 	const {type,data} = action

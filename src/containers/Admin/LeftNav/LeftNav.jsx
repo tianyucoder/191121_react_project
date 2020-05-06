@@ -17,7 +17,7 @@ const {SubMenu,Item} = Menu;
 class LeftNav extends Component {
 
 	saveTitle = (title)=>{
-		console.log(title);
+		//console.log(title);
 		this.props.saveTitle(title)
 	}
 
@@ -46,6 +46,35 @@ class LeftNav extends Component {
 				)
 			}
 		})
+	}
+
+	//计算title的
+	calculateTitle = ()=>{
+		//console.log('redux中没有title了，只能靠calculateTitle计算');
+		//1.从路径中获取菜单的key
+		const {pathname} = this.props.location //路径的字符串
+		let currentKey = pathname.split('/').slice(-1)[0] //当前的key
+		if(currentKey === 'admin') currentKey = 'home'
+		let title = ''
+		//2.拿着key去menu-config中查找其所对应的菜单名字
+		menus.forEach((menuObj)=>{
+			if(menuObj.children instanceof Array){
+				//如果有子菜单，就去子菜单中查找
+				let result = menuObj.children.find((childObj)=>{
+					return childObj.key === currentKey
+				})
+				if(result) title = result.title
+			}else{
+				//如果没有子菜单就在自身查找
+				if(menuObj.key === currentKey) title = menuObj.title
+			}
+		})
+		this.props.saveTitle(title)
+	}
+
+	componentDidMount(){
+		//根据路径计算出菜单标题
+		this.calculateTitle()
 	}
 
 	render() {
