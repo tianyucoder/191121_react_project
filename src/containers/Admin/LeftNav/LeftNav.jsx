@@ -27,16 +27,14 @@ class LeftNav extends Component {
 			if(!menuObj.children){
 				return (
 					<Item key={menuObj.key} onClick={()=>{this.saveTitle(menuObj.title)}}>
-						<Link to={menuObj.path} style={{color:'white'}}>
-							<menuObj.icon/>
-							{menuObj.title}
+						<Link to={menuObj.path} >
+							<menuObj.icon/>{menuObj.title}
 						</Link>
 					</Item>
 				)
 			}else{
 				return(
 					<SubMenu 
-						style={{color:'white'}} 
 						key={menuObj.key} 
 						icon={<menuObj.icon/>} 
 						title={menuObj.title}
@@ -78,8 +76,8 @@ class LeftNav extends Component {
 	}
 
 	render() {
-		const {pathname} = this.props.location
-		const openedkey = pathname.split('/')
+		const {pathname} = this.props.location //获取路径，无论是展开还是选中，都是从路径中获取的。
+		const openedkey = pathname.split('/') //要展开的菜单
 		const checkedKey = openedkey.slice(-1) //要选中的菜单
 		return (
 			<div className="left-nav">
