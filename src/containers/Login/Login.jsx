@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {connect} from 'react-redux'
-import Check from 'day07_src_category/containers/Admin/node_modules/@/containers/Hoc/Check'
+import Check from '@/containers/Hoc/Check'
 import {saveUserInfo} from '@/redux/actions/login'
 import {reqLogin} from '@/api'
 import logo from '@/assets/images/logo.png'

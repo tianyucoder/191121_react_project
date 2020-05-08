@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Layout } from 'antd';
 import {Switch,Route,Redirect} from 'react-router-dom'
-import Check from 'day07_src_category/containers/Admin/node_modules/@/containers/Hoc/Check'
+import Check from '@/containers/Hoc/Check'
 import Header from './Header/Header'
 import LeftNav from './LeftNav/LeftNav'
 import Home from './Home/Home'

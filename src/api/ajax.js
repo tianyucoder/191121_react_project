@@ -9,7 +9,7 @@
 import axios from 'axios' //axios核心库
 import qs from 'querystring' //用于将对象转为urlencoded字符串
 import nprogress from 'nprogress'//引入nprogress制作进度条
-import 'day07_src_category/api/node_modules/nprogress/nprogress.css'
+import 'nprogress/nprogress.css'
 import {message as msg} from 'antd'
 import store from '@/redux/store'
 import {deleteUserInfo} from '@/redux/actions/login'
