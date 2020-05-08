@@ -1,28 +1,37 @@
 import React, { Component } from 'react'
-import { Card,Button,Select,Input,Table} from 'antd';
+import { Card,Button,Select,Input,Table, message} from 'antd';
 import {PlusCircleOutlined,SearchOutlined} from '@ant-design/icons';
+import {reqProductList} from '@/api'
+import {PAGE_SIZE} from '@/config'
 
 const { Option } = Select;
 
 export default class Product extends Component {
+
+	state = {
+		productList:[], //商品数据
+		total:0 //数据总数
+	}
+
+	//请求商品数据(分页)
+	getProductList = async(pageNumber=1)=>{
+		let result = await	reqProductList(pageNumber,PAGE_SIZE)
+		const {status,data,msg} = result
+		if(status === 0){
+			const {total,list} = data
+			this.setState({productList:list,total})
+		}else{
+			message.error(msg)
+		}
+	}
+
+	componentDidMount(){
+	 this.getProductList()
+	}
+
 	render() {
 		//存储表格的数据源的数组
-		const dataSource = [
-			{
-				key: '1',
-				name: '钢铁侠',
-				desc: '你值得拥有的一个铠甲',
-				price: 12.9,
-				status: 1
-			},
-			{
-				key: '2',
-				name: '跑步机',
-				desc: '减肥的利器',
-				price: 1999,
-				status: 2
-			},
-		];
+		const dataSource = this.state.productList;
 		//存储表格的列配置的数组
 		const columns = [
 			{
@@ -92,6 +101,14 @@ export default class Product extends Component {
 					dataSource={dataSource} //表格的数据源
 					columns={columns} //表格列配置
 					bordered //边框
+					rowKey="_id" //指定唯一值对应项
+					pagination={{
+						total:this.state.total,//数据总数
+						pageSize:PAGE_SIZE,//每页多大
+						onChange:(pageNumber)=>{
+							this.getProductList(pageNumber)
+						}
+					}}
 				/>
 			</Card>
 		)

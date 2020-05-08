@@ -28,5 +28,15 @@ export const reqCategoryList = () => ajax.get('/manage/category/list')
 //请求添加分类
 export const reqAddCategory = categoryName => ajax.post('/manage/category/add',{categoryName})
 //请求更改分类名
-export const reqUpdateCategory = (categoryId,categoryName) => 
-	ajax.post('/manage/category/update',{categoryId,categoryName})
+export const reqUpdateCategory = (categoryId,categoryName) => ajax.post('/manage/category/update',{categoryId,categoryName})
+//请求商品列表(分页)
+export const reqProductList = (pageNum,pageSize) => ajax.get('/manage/product/list',{params:{pageNum,pageSize}})
+
+
+
+
+
+
+
+
+
