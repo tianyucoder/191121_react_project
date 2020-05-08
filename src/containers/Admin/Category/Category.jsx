@@ -4,6 +4,7 @@ import {PlusCircleOutlined} from '@ant-design/icons';
 import {connect} from 'react-redux'
 import {saveCategoryAsync} from '@/redux/actions/category'
 import {PAGE_SIZE} from '@/config'
+import {reqAddCategory} from '@/api'
 
 const {Item} = Form
 
@@ -14,29 +15,48 @@ const {Item} = Form
 class Category extends Component {
 
 	state = { 
-		visible: false //默认不展示弹窗
+		visible: false,//默认不展示弹窗
 	};
 
-	//展示弹窗
-	showModal = () => {
+	//展示弹窗(新增和修改共用一个，要区分好到底是新增，还是修改)
+	showModal = (categoryObj) => {
+		console.log(categoryObj);
+		this._id = '' //重置_id
+		this.name = ''//重置name
+		this.isUpdate = false //重置标识
+		const {_id,name} = categoryObj
+		if(_id && name){
+			//若是修改，则要存下：_id,name
+			this._id = _id //存下_id，一会发请求用。
+			this.name = name //存下name，一会做数据回显用。
+			this.isUpdate = true //标识是否为修改
+		}
     this.setState({visible: true});
 	};
 	
 	//确认的回调
-	handleOk = () => {
+	handleOk = async() => {
 		const {categotryForm} = this.refs
 		//1.获取表单数据
 		const {name} = categotryForm.getFieldsValue()
 		//2.校验数据
-		if(!name || !name.trim()){
-			//若输入不合法
+		if(!name || !name.trim()){ //若输入不合法
 			message.error('分类名不能为空',1)
-		}else{
+		}else{ //若输入合法
 			//3.发送请求添加一个分类
-			//4.隐藏弹窗
-			this.setState({visible: false});
-			//5.重置表单
-			categotryForm.resetFields()
+			let result = await reqAddCategory(name)
+			//从result中获取本次操作结果
+			const {status,msg} = result
+			if(status===0){
+				message.success('添加分类成功')
+				this.props.saveCategoryAsync()
+				//4.隐藏弹窗
+				this.setState({visible: false});
+				//5.重置表单
+				categotryForm.resetFields()
+			}else{
+				message.error(msg)
+			}
 		}
 	};
 	
@@ -67,7 +87,12 @@ class Category extends Component {
 				//dataIndex: 'name',
 				width:'20%',
 				align:'center',
-				render:() => <Button type="link">修改分类</Button>, //render用于高级渲染，返回值展示到页面
+				render:(categoryObj) => 
+								<Button 
+										onClick={()=>{this.showModal(categoryObj)}} 
+										type="link"
+								>修改分类
+								</Button>, //render用于高级渲染，返回值展示到页面
 				key: '3',
 			},
 		];
@@ -93,14 +118,14 @@ class Category extends Component {
 				</Card>
 				{/* Modal弹窗组件 */}
 				<Modal
-					title="新增分类" //弹窗标题
+					title={this.isUpdate ? '修改分类' : '新增分类'} //弹窗标题
 					visible={this.state.visible} //控制弹窗是否展示
 					onOk={this.handleOk} //确认的回调
 					onCancel={this.handleCancel} //取消的回调
 					okText="确定"
 					cancelText="取消"
 				>
-					<Form ref="categotryForm">
+					<Form ref="categotryForm" initialValues={{name:this.name}}>
 						<Item
 							name="name"
 							rules={[

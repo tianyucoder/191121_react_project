@@ -6,7 +6,7 @@ export default function (preState=initState,action){
 	const {type,data} = action
 	switch (type) {
 		case SAVE_CATEGORY:
-			newState = [...data]
+			newState = [...data].reverse()
 			return newState
 		default:
 			return preState
