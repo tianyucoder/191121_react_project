@@ -15,18 +15,21 @@ export default class Product extends Component {
 
 	//请求商品数据(分页)
 	getProductList = async(pageNumber=1)=>{
+		//根据页码请求商品列表
 		let result = await	reqProductList(pageNumber,PAGE_SIZE)
 		const {status,data,msg} = result
 		if(status === 0){
+			//若请求成功
 			const {total,list} = data
 			this.setState({productList:list,total})
 		}else{
+			//若请求失败
 			message.error(msg)
 		}
 	}
 
 	componentDidMount(){
-	 this.getProductList()
+	 this.getProductList() //初始化商品列表
 	}
 
 	render() {
@@ -105,7 +108,7 @@ export default class Product extends Component {
 					pagination={{
 						total:this.state.total,//数据总数
 						pageSize:PAGE_SIZE,//每页多大
-						onChange:(pageNumber)=>{
+						onChange:(pageNumber)=>{ //页码改变的回调
 							this.getProductList(pageNumber)
 						}
 					}}
