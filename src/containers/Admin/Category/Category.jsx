@@ -32,6 +32,7 @@ class Category extends Component {
   };
 
 	componentDidMount(){
+		//保存分类
 		this.props.saveCategoryAsync()
 	}
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Menu} from 'antd';
-import {Link,withRouter} from 'react-router-dom'
+import {NavLink,withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {saveTitle} from '@/redux/actions/title'
 import logo from '@/assets/images/logo.png'
@@ -27,9 +27,9 @@ class LeftNav extends Component {
 			if(!menuObj.children){
 				return (
 					<Item key={menuObj.key} onClick={()=>{this.saveTitle(menuObj.title)}}>
-						<Link to={menuObj.path} >
+						<NavLink to={menuObj.path} >
 							<menuObj.icon/>{menuObj.title}
-						</Link>
+						</NavLink>
 					</Item>
 				)
 			}else{
