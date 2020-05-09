@@ -32,9 +32,10 @@ export const reqUpdateCategory = (categoryId,categoryName) => ajax.post('/manage
 //请求商品列表(分页)
 export const reqProductList = (pageNum,pageSize) => ajax.get('/manage/product/list',{params:{pageNum,pageSize}})
 //请求搜索商品(分页)
-export const reqSerachProduct = (searchType,keyWord,pageNum,pageSize) =>
-	ajax.get('/manage/product/search',{params:{[searchType]:keyWord,pageNum,pageSize}})
-
+export const reqSerachProduct = (searchType,keyWord,pageNum,pageSize) => ajax.get('/manage/product/search',{params:{[searchType]:keyWord,pageNum,pageSize}})
+//请求商品上架、下架
+export const reqUpdateProductStatus = (productId,status) => 
+	ajax.post('/manage/product/updateStatus',{productId,status})
 
 
 

@@ -91,7 +91,7 @@ class Category extends Component {
 			{
 				title: '分类名', //列名
 				dataIndex: 'name', //数据索引项，控制该列展示什么信息。
-				key: '1', //不是一个必要的属性，和该列展示什么信息，没有任何关系，写上效率高
+				key: 'name', //不是一个必要的属性，和该列展示什么信息，没有任何关系，写上效率高
 			},
 			{
 				title: '操作',
@@ -104,7 +104,7 @@ class Category extends Component {
 										type="link"
 								>修改分类
 								</Button>, //render用于高级渲染，返回值展示到页面
-				key: '3',
+				key: 'opera',
 			},
 		];
 		return (
@@ -139,9 +139,7 @@ class Category extends Component {
 					<Form ref="categotryForm" initialValues={{name:this.name}}>
 						<Item
 							name="name"
-							rules={[
-								{required:true,message:'分类名必须输入'}
-							]}
+							rules={[{required:true,message:'分类名必须输入'}]}
 						>
 							<Input placeholder="请输入分类名"/>
 						</Item>
