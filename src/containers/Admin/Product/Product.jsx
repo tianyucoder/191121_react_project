@@ -141,7 +141,7 @@ export default class Product extends Component {
 					</div>
 				} 
 				extra={
-					<Button type="primary">
+					<Button onClick={()=>{this.props.history.push('/admin/prod_about/product/add')}} type="primary">
 						<PlusCircleOutlined/>添加商品
 					</Button>
 				} 
