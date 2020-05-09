@@ -3,6 +3,7 @@ import {Card,Button,Form,Input,Select} from 'antd'
 import {connect} from 'react-redux'
 import {saveCategoryAsync} from '@/redux/actions/category'
 import {ArrowLeftOutlined} from '@ant-design/icons';
+import PictureWall from './PictureWall/PictureWall'
 
 const {Item} = Form
 const {Option} = Select
@@ -90,7 +91,7 @@ class AddUpdate extends Component {
 						wrapperCol={{span:6}}
 						style={{marginLeft:'12px'}}
 					>
-						此处放置antd的上传组件
+						<PictureWall/>
 					</Item>
 					<Item
 						label="商品详情"
