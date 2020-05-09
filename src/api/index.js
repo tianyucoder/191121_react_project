@@ -34,8 +34,9 @@ export const reqProductList = (pageNum,pageSize) => ajax.get('/manage/product/li
 //请求搜索商品(分页)
 export const reqSerachProduct = (searchType,keyWord,pageNum,pageSize) => ajax.get('/manage/product/search',{params:{[searchType]:keyWord,pageNum,pageSize}})
 //请求商品上架、下架
-export const reqUpdateProductStatus = (productId,status) => 
-	ajax.post('/manage/product/updateStatus',{productId,status})
+export const reqUpdateProductStatus = (productId,status) => ajax.post('/manage/product/updateStatus',{productId,status})
+//根据商品的id请求商品详细信息
+export const reqProductInfoById = (productId)=> ajax.get('/manage/product/info',{params:{productId}})
 
 
 
