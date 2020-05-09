@@ -5,7 +5,7 @@ export default class AddUpdate extends Component {
 	render() {
 		return (
 			<div>
-				我是AddUpdate组件，我可能用于：1.添加商品 2.修改商品
+				我是AddUpdate组件，我用于：{this.props.match.params.id ? '修改商品' : '新增商品'}
 				<Button onClick={this.props.history.goBack}>返回</Button>
 			</div>
 		)

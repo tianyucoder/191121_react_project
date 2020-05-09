@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card,Button,Select,Input,Table, message} from 'antd';
+import {Link} from 'react-router-dom'
 import {PlusCircleOutlined,SearchOutlined} from '@ant-design/icons';
 import {reqProductList,reqSerachProduct,reqUpdateProductStatus} from '@/api'
 import {PAGE_SIZE} from '@/config'
@@ -103,13 +104,21 @@ export default class Product extends Component {
 			},
 			{
 				title: '操作',
-				//dataIndex: 'action',
+				dataIndex: '_id',
 				key: 'action',
 				align:'center',
-				render:()=> (
+				render:(id)=> (
 					<div>
-						<Button type="link">详情</Button><br/>
-						<Button type="link">修改</Button>
+						<Button 
+							onClick={()=>{this.props.history.push(`/admin/prod_about/product/detail/${id}`)}} 
+							type="link"
+						>详情
+						</Button><br/>
+						<Button 
+							onClick={()=>{this.props.history.push(`/admin/prod_about/product/update/${id}`)}}
+							type="link"
+						>修改
+						</Button>
 					</div>
 				)
 			},

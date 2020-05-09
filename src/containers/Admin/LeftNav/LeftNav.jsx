@@ -53,6 +53,7 @@ class LeftNav extends Component {
 		const {pathname} = this.props.location //路径的字符串
 		let currentKey = pathname.split('/').slice(-1)[0] //当前的key
 		if(currentKey === 'admin') currentKey = 'home'
+		if(pathname.indexOf('product')) currentKey = 'product'
 		let title = ''
 		//2.拿着key去menu-config中查找其所对应的菜单名字
 		menus.forEach((menuObj)=>{
@@ -78,7 +79,8 @@ class LeftNav extends Component {
 	render() {
 		const {pathname} = this.props.location //获取路径，无论是展开还是选中，都是从路径中获取的。
 		const openedkey = pathname.split('/') //要展开的菜单
-		const checkedKey = openedkey.slice(-1) //要选中的菜单
+		let checkedKey = openedkey.slice(-1) //要选中的菜单
+		if(openedkey.indexOf('product') !== -1) checkedKey = ['product']
 		return (
 			<div className="left-nav">
 				<div className="nav-top">
