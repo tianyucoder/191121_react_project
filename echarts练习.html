@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>echarts练习</title>
+	<!-- 1.引入echarts核心库 -->
+	<script type="text/javascript" src="./echarts.min.js"></script>
+</head>
+<body>
+<!-- 2.为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 600px;height:400px;"></div>
+<!-- 3.编写配置 -->
+<script type="text/javascript">
+		// (1).基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init(document.getElementById('main'));
+
+		// (2).指定图表的配置项、数据(重要！！！)
+		var option = {
+				title: {
+					text: '商品销售数据报表',
+					link:'http://www.atguigu.com/',
+					/* textStyle:{
+						color:'red'
+					} */
+				},
+				tooltip: {
+					show:true,
+					trigger:'axis',
+					showDelay:500
+				},
+				legend: {
+					data:['销量','库存']
+				},
+				xAxis: {
+					data: ["运动鞋","皮鞋","雪纺衫","裤子","高跟鞋","袜子"]
+				},
+				yAxis: {},
+				//series里的是数据
+				series: [
+					{
+						name: '销量',
+						type: 'bar', //以哪一种图表展示 bar柱状图 line折线图 pie饼状图
+						data: [5, 20, 36, 10, 10, 20]
+					},
+					{
+						name: '库存',
+						type: 'line', //以哪一种图表展示 bar柱状图 line折线图 pie饼状图
+						data: [20, 25, 36, 40, 9, 50]
+					}
+				],
+				toolbox:{
+					 show:true,
+					 feature:{
+						 saveAsImage:{type:'gif'},
+						 restore:{},
+						 dataView:{}
+					 },
+					 
+				}
+		};
+
+		// (3).使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+</script>
+	
+</body>
+</html>
