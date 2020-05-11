@@ -43,7 +43,8 @@ export const reqDeletePicture = (name)=> ajax.post('/manage/img/delete',{name})
 export const reqAddProduct = (productObj)=> ajax.post('/manage/product/add',productObj)
 //请求修改商品
 export const reqUpdateProduct = (productObj)=> ajax.post('/manage/product/update',productObj)
-
+//请求角色列表
+export const reqRoleList = ()=> ajax.get('/manage/role/list')
 
 
 
