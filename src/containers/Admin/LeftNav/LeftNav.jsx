@@ -24,6 +24,8 @@ class LeftNav extends Component {
 		this.props.saveTitle(title)
 	}
 
+	//专门用于判断当前菜单是否有权限展示。
+	//注意：一个菜单没有权限，但是他下的子菜单可能是有权限的。
 	hasAuth = (menuObj)=>{ //menuObj是菜单配置文件中的每一个菜单项
 		const {userMenus,username} = this.props //用户应该看到的菜单key组成数组
 		if(username === 'admin') return true
@@ -37,6 +39,7 @@ class LeftNav extends Component {
 	//创建菜单的函数
 	createMenu = (menuArr)=>{
 		return menuArr.map((menuObj)=>{
+			//判断菜单是否有权限
 			if(this.hasAuth(menuObj)){
 				if(!menuObj.children){
 					return (
