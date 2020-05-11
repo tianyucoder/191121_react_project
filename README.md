@@ -101,3 +101,6 @@
 ## day10任务
 			1.富文本编辑器(wysiwyg)
 				执行命令：yarn add react-draft-wysiwyg draft-js draftjs-to-html html-to-draftjs
+			2.富文本编辑器代码分析，获取富文本内容
+			3.完成添加商品
+			4.修改商品--基本数据回显
