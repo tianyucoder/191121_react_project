@@ -53,7 +53,7 @@ class LeftNav extends Component {
 		const {pathname} = this.props.location //路径的字符串
 		let currentKey = pathname.split('/').slice(-1)[0] //当前的key
 		if(currentKey === 'admin') currentKey = 'home'
-		if(pathname.indexOf('product')) currentKey = 'product'
+		if(pathname.indexOf('product') !== -1) currentKey = 'product'
 		let title = ''
 		//2.拿着key去menu-config中查找其所对应的菜单名字
 		menus.forEach((menuObj)=>{
