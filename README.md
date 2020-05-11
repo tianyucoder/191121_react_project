@@ -89,10 +89,15 @@
 			2.loading效果。
 			3.搭建product子路由。
 			4.实现新增、修改、详情的跳转(关于react中路由跳转传递参数的问题)
-			5.处理刷新页面选中和标题丢失的问题(只要路径中包含了product，就选中product这个菜单，头部就展示商品管理)
+			5.处理刷新页面选中菜单和标题丢失的问题(只要路径中包含了product，就选中product这个菜单，头部就展示商品管理)
 			6.商品详情页的静态
 			7.商品详情页的动态数据
 				(1).根据分类id查询分类的名字
 				(2).图片是有公共前缀的
 				(3).在react中innerHtml的替代方案：dangerouslySetInnerHTML={{__html:detail}}
+			8.添加商品组件--静态
+			9.antd中的Upload组件
 
+## day10任务
+			1.富文本编辑器(wysiwyg)
+				执行命令：yarn add react-draft-wysiwyg draft-js draftjs-to-html html-to-draftjs

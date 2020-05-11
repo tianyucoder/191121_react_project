@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {saveCategoryAsync} from '@/redux/actions/category'
 import {ArrowLeftOutlined} from '@ant-design/icons';
 import PictureWall from './PictureWall/PictureWall'
+import RichText from './RichText/RichText'
 
 const {Item} = Form
 const {Option} = Select
@@ -98,7 +99,7 @@ class AddUpdate extends Component {
 						wrapperCol={{span:6}}
 						style={{marginLeft:'12px'}}
 					>
-						此处放置富文本编辑器
+						<RichText/>
 					</Item>
 					<Item>
 						<Button type="primary" htmlType="submit">提交</Button>
