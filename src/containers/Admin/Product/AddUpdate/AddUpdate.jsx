@@ -3,7 +3,7 @@ import {Card,Button,Form,Input,Select, message} from 'antd'
 import {connect} from 'react-redux'
 import {saveCategoryAsync} from '@/redux/actions/category'
 import {ArrowLeftOutlined} from '@ant-design/icons';
-import {reqAddProduct} from '@/api'
+import {reqAddProduct,reqProductInfoById} from '@/api'
 import PictureWall from './PictureWall/PictureWall'
 import RichText from './RichText/RichText'
 
@@ -16,6 +16,24 @@ const {Option} = Select
 )
 class AddUpdate extends Component {
 
+	state = {
+		isUpdate:false
+	}
+
+	getCurrentProduct = async(id)=>{
+		//1.根据id查询当前商品的详细信息
+		let result = await reqProductInfoById(id)
+		const {status,data,msg} = result
+		if(status === 0){
+			const {name,desc,price,categoryId,imgs,detail} = data
+			this.setState({isUpdate:true})
+			this.refs.productForm.setFieldsValue({name,desc,price,categoryId,imgs,detail})
+		}else{
+			message.error(msg)
+		}
+	}
+
+	//表单提交的回调
 	onFinish = async(values)=>{
 		values.imgs = this.refs.pictureWall.getImgNameArr()
 		values.detail = this.refs.richText.getRichText()
@@ -30,7 +48,14 @@ class AddUpdate extends Component {
 
 	componentDidMount(){
 		const {categoryList,saveCategoryAsync} = this.props
+		//如果redux中没有分类数据，就去请求，随后保存
 		if(categoryList.length === 0) saveCategoryAsync()
+		//尝试着去获取商品id
+		const {id} = this.props.match.params
+		if(id) {
+			this.getCurrentProduct(id)
+		}
+			
 	}
 
 	render() {
@@ -44,11 +69,12 @@ class AddUpdate extends Component {
 						>
 							<ArrowLeftOutlined/>返回
 						</Button>	
-						<span>添加商品</span>
+						<span>{this.state.isUpdate ? '修改商品' : '添加商品'}</span>
 					</div>
 				}
 			>
 				<Form
+					ref="productForm"
 					initialValues={{categoryId:''}}
 					onFinish={this.onFinish}
 				>
@@ -97,6 +123,7 @@ class AddUpdate extends Component {
 						</Select>
 					</Item>
 					<Item
+						name="imgs"
 						label="商品图片"
 						wrapperCol={{span:6}}
 						style={{marginLeft:'12px'}}
