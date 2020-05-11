@@ -28,7 +28,16 @@ export default class PictureWall extends Component {
         url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',//图片地址
       } */
     ],
-  };
+	};
+	
+	//获取所有上传完毕的图片名字(服务器返回的新名字)
+	getImgNameArr = ()=>{
+		let arr = []
+		this.state.fileList.forEach((imgObj)=>{
+			arr.push(imgObj.name)
+		})
+		return arr
+	}
 
 	//预览窗关闭按钮的回调（程序员无需修改）
   handleCancel = () => this.setState({ previewVisible: false });

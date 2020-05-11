@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {Card,Button,Form,Input,Select} from 'antd'
+import {Card,Button,Form,Input,Select, message} from 'antd'
 import {connect} from 'react-redux'
 import {saveCategoryAsync} from '@/redux/actions/category'
 import {ArrowLeftOutlined} from '@ant-design/icons';
+import {reqAddProduct} from '@/api'
 import PictureWall from './PictureWall/PictureWall'
 import RichText from './RichText/RichText'
 
@@ -15,8 +16,16 @@ const {Option} = Select
 )
 class AddUpdate extends Component {
 
-	onFinish = (values)=>{
-		console.log(values);
+	onFinish = async(values)=>{
+		values.imgs = this.refs.pictureWall.getImgNameArr()
+		values.detail = this.refs.richText.getRichText()
+		let result = await reqAddProduct(values)
+		const {status,msg} = result
+		if(status === 0) {
+			message.success('商品添加成功')
+			this.props.history.replace('/admin/prod_about/product')
+		}
+		else message.error(msg)
 	}
 
 	componentDidMount(){
@@ -92,14 +101,14 @@ class AddUpdate extends Component {
 						wrapperCol={{span:6}}
 						style={{marginLeft:'12px'}}
 					>
-						<PictureWall/>
+						<PictureWall ref="pictureWall"/>
 					</Item>
 					<Item
 						label="商品详情"
-						wrapperCol={{span:6}}
+						wrapperCol={{span:14}}
 						style={{marginLeft:'12px'}}
 					>
-						<RichText/>
+						<RichText ref="richText"/>
 					</Item>
 					<Item>
 						<Button type="primary" htmlType="submit">提交</Button>
