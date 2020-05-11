@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { Upload, Modal,message} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import {reqDeletePicture} from '@/api'
+import {IMAGE_BASE_URL} from '@/config'
 
 //将图片转为base64(如果图片上传失败了，为了保证用户体验，将图片转为base64编码，用于页面展示)
 function getBase64(file) {
@@ -29,6 +30,20 @@ export default class PictureWall extends Component {
       } */
     ],
 	};
+
+	//根据图片名数组还原出fileList
+	setFileListByImgNameArr = (nameArr)=>{
+		let fileList = []
+		nameArr.forEach((imgName,index)=>{
+			fileList.push({
+				uid:index,
+				name:imgName,
+				status:'done',
+				url:IMAGE_BASE_URL+imgName
+			})
+		})
+		this.setState({fileList})
+	}
 	
 	//获取所有上传完毕的图片名字(服务器返回的新名字)
 	getImgNameArr = ()=>{

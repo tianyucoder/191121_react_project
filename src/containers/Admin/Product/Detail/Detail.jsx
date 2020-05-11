@@ -16,14 +16,15 @@ const {Item} = List
 class Detail extends Component {
 
 	state = {
-		currentProduct:{imgs:[]} //当前商品信息
+		currentProduct:{imgs:[]}, //当前商品信息
+		isLoading:true //标识是否处于加载中
 	}
 
 	//根据id获取商品数据
 	getCurrentProductInfo = async(id)=>{
 		let result = await reqProductInfoById(id)
 		const {status,data,msg} = result
-		if(status === 0) this.setState({currentProduct:data})
+		if(status === 0) this.setState({currentProduct:data,isLoading:false})
 		else message.error(msg)
 	}
 
@@ -51,7 +52,8 @@ class Detail extends Component {
 	render() {
 		const {name,desc,price,categoryId,imgs,detail} = this.state.currentProduct
 		return (
-			<Card 
+			<Card
+				loading={this.state.isLoading} 
 				title={
 					<div>
 						<Button 

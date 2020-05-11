@@ -3,7 +3,7 @@ import {Card,Button,Form,Input,Select, message} from 'antd'
 import {connect} from 'react-redux'
 import {saveCategoryAsync} from '@/redux/actions/category'
 import {ArrowLeftOutlined} from '@ant-design/icons';
-import {reqAddProduct,reqProductInfoById} from '@/api'
+import {reqAddProduct,reqProductInfoById,reqUpdateProduct} from '@/api'
 import PictureWall from './PictureWall/PictureWall'
 import RichText from './RichText/RichText'
 
@@ -17,17 +17,27 @@ const {Option} = Select
 class AddUpdate extends Component {
 
 	state = {
-		isUpdate:false
+		isUpdate:false,
+		isLoading:false
 	}
 
 	getCurrentProduct = async(id)=>{
-		//1.根据id查询当前商品的详细信息
+		this.setState({isLoading:true})
+		//根据id查询当前商品的详细信息
 		let result = await reqProductInfoById(id)
+		//从result中获取数据
 		const {status,data,msg} = result
 		if(status === 0){
+			//从data中解构赋值商品详细属性
 			const {name,desc,price,categoryId,imgs,detail} = data
-			this.setState({isUpdate:true})
-			this.refs.productForm.setFieldsValue({name,desc,price,categoryId,imgs,detail})
+			//更状态取消展示loading
+			this.setState({isLoading:false})
+			//通过Form实例的setFieldsValue回显基本数据
+			this.refs.productForm.setFieldsValue({name,desc,price,categoryId})
+			//通过PictureWall组件实例调用setFileListByImgNameArr回显图片数据
+			this.refs.pictureWall.setFileListByImgNameArr(imgs)
+			//通过RichText组件实例调用setRichText
+			this.refs.richText.setRichText(detail)
 		}else{
 			message.error(msg)
 		}
@@ -37,10 +47,16 @@ class AddUpdate extends Component {
 	onFinish = async(values)=>{
 		values.imgs = this.refs.pictureWall.getImgNameArr()
 		values.detail = this.refs.richText.getRichText()
-		let result = await reqAddProduct(values)
+		let result
+		if(this.state.isUpdate){
+			values._id = this._id
+			result = await reqUpdateProduct(values)
+		}else{
+			result = await reqAddProduct(values)
+		}
 		const {status,msg} = result
 		if(status === 0) {
-			message.success('商品添加成功')
+			message.success(this.state.isUpdate ? '修改成功' : '商品添加成功')
 			this.props.history.replace('/admin/prod_about/product')
 		}
 		else message.error(msg)
@@ -53,6 +69,8 @@ class AddUpdate extends Component {
 		//尝试着去获取商品id
 		const {id} = this.props.match.params
 		if(id) {
+			this._id = id
+			this.setState({isUpdate:true})
 			this.getCurrentProduct(id)
 		}
 			
@@ -61,6 +79,7 @@ class AddUpdate extends Component {
 	render() {
 		return (
 			<Card 
+				loading={this.state.isLoading}
 				title={
 					<div>
 						<Button 
