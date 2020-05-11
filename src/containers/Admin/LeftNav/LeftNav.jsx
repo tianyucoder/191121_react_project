@@ -10,7 +10,10 @@ import './css/left_nav.less'
 const {SubMenu,Item} = Menu;
 
 @connect(
-	()=>({}),//映射状态
+	(state)=>({
+		userMenus:state.userInfo.user.role.menus,
+		username:state.userInfo.user.username,
+	}),//映射状态
 	{saveTitle}//映射操作状态的方法
 )
 @withRouter
@@ -21,27 +24,40 @@ class LeftNav extends Component {
 		this.props.saveTitle(title)
 	}
 
+	hasAuth = (menuObj)=>{ //menuObj是菜单配置文件中的每一个菜单项
+		const {userMenus,username} = this.props //用户应该看到的菜单key组成数组
+		if(username === 'admin') return true
+		if(!menuObj.children){
+			return userMenus.find((item)=> item === menuObj.key)
+		}else{
+			return menuObj.children.some((childItem)=>userMenus.indexOf(childItem.key) !== -1)
+		}
+	}
+
 	//创建菜单的函数
 	createMenu = (menuArr)=>{
 		return menuArr.map((menuObj)=>{
-			if(!menuObj.children){
-				return (
-					<Item key={menuObj.key} onClick={()=>{this.saveTitle(menuObj.title)}}>
-						<NavLink to={menuObj.path} >
-							<menuObj.icon/>{menuObj.title}
-						</NavLink>
-					</Item>
-				)
-			}else{
-				return(
-					<SubMenu 
-						key={menuObj.key} 
-						icon={<menuObj.icon/>} 
-						title={menuObj.title}
-					>
-						{this.createMenu(menuObj.children)}
-					</SubMenu>
-				)
+			if(this.hasAuth(menuObj)){
+				if(!menuObj.children){
+					return (
+						<Item key={menuObj.key} onClick={()=>{this.saveTitle(menuObj.title)}}>
+							<NavLink to={menuObj.path} >
+								<menuObj.icon/>{menuObj.title}
+							</NavLink>
+						</Item>
+					)
+				}
+				else{
+					return(
+						<SubMenu 
+							key={menuObj.key} 
+							icon={<menuObj.icon/>} 
+							title={menuObj.title}
+						>
+							{this.createMenu(menuObj.children)}
+						</SubMenu>
+					)
+				}
 			}
 		})
 	}
